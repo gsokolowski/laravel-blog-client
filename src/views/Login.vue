@@ -11,7 +11,7 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST" @submit.prevent="login">
+      <form class="space-y-6" action="#" method="POST" @submit.prevent="setCookieAndLogin">
         <div>
           <label
             for="email"
@@ -29,9 +29,9 @@
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
 
-            <p class="text-red-500" v-if="errors?.email">
+            <!-- <p class="text-red-500" v-if="errors?.email">
               {{ errors.email[0] }}
-            </p>
+            </p> -->
           </div>
         </div>
 
@@ -52,9 +52,9 @@
               autocomplete="current-password"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
-            <p class="text-red-500" v-if="errors?.password">
+            <!-- <p class="text-red-500" v-if="errors?.password">
               {{ errors.password[0] }}
-            </p>
+            </p> -->
           </div>
         </div>
 
@@ -67,6 +67,29 @@
           </button>
         </div>
       </form>
+
+      {{ email }}
+      {{ password }}
     </div>
   </div>
 </template>
+
+<script setup>
+// import userState from Pinia stores/user.js
+import { userState } from "../stores/user";
+import { ref } from "vue";
+
+const email = ref(""); // reads directly from form field email
+const password = ref(""); // reads directly from form field password
+
+const store = userState(); // "user" store installed
+
+// lets call setCookieAndLogin() method from stores/user.js
+const setCookieAndLogin = () => {
+    store.setCookieAndLogin({ // pass data as an object 
+      email: email.value,
+      password: password.value
+    }
+  );
+};
+</script>

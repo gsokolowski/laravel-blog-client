@@ -10,6 +10,7 @@ import axios from "axios"; // import axios
 // axios canfiguration for fetching data from laravel-blog-api
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
+axios.defaults.baseURL = "http://localhost:8000";
 
 const app = createApp(App);
 
