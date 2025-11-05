@@ -22,38 +22,38 @@
 </template>
 
 <script setup>
-import axios from "axios";
-// run this code on button click setCookieAndLogin() asyncronicly
-const setCookieAndLogin = async () => {
-  try {
-    // becouse of async this .get call will be called first
-    await axios
-      .get("/sanctum/csrf-cookie")
-      .then((response) => {
-        console.log("set sanctum csrf-cookie");
-      });
+// import axios from "axios";
+// // run this code on button click setCookieAndLogin() asyncronicly
+// const setCookieAndLogin = async () => {
+//   try {
+//     // becouse of async this .get call will be called first
+//     await axios
+//       .get("/sanctum/csrf-cookie")
+//       .then((response) => {
+//         console.log("set sanctum csrf-cookie");
+//       });
 
-    // then once csrf-cookie is set that call .post will be called second
-    await axios
-      .post("/login", {
-        email: "greg.sokolowski@email.com",
-        password: "password",
-      })
-      .then((response) => {
-        console.log("logged in with user credentials");
-      });
-  } catch (error) {
-    console.error("Error during login flow:", error);
-  }
-};
+//     // then once csrf-cookie is set that call .post will be called second
+//     await axios
+//       .post("/login", {
+//         email: "greg.sokolowski@email.com",
+//         password: "password",
+//       })
+//       .then((response) => {
+//         console.log("logged in with user credentials");
+//       });
+//   } catch (error) {
+//     console.error("Error during login flow:", error);
+//   }
+// };
 
-const getUserData = () => {
-  try {
-    axios.get("http://localhost:8000/api/user").then((response) => {
-      console.log(response);
-    });
-  } catch (error) {
-    console.error("Error during getuserData", error);
-  }
-};
+// const getUserData = () => {
+//   try {
+//     axios.get("http://localhost:8000/api/user").then((response) => {
+//       console.log(response);
+//     });
+//   } catch (error) {
+//     console.error("Error during getuserData", error);
+//   }
+// };
 </script>

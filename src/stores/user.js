@@ -50,11 +50,10 @@ export const userState = defineStore("user", {
         } else {
             console.error('An unexpected error occurred:', error)
         }
+
+        // Important: rethrow the error so Login.vue can catch it
+        throw error;
       }
     },
   },
 });
-
-// await axios.get("/api/user").then((response) => {
-//     console.log(response);
-//   });
