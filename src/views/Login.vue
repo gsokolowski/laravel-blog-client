@@ -75,11 +75,15 @@ const setCookieAndLogin = () => {
     store.setCookieAndLogin({ // pass data as an object 
       email: email.value,
       password: password.value
-    }).catch(err => {
-      console.log(err);
-      if(err.response.status == 422) {
-        //alert('error');
-        errors.value = err.response.data.errors
+    }).catch(errs => {
+      console.log(errs);
+      // Where to get errors from?
+      // from console on thap POST AxiosError
+      // AxiosError response.status == 422
+      // AxiosError response.data.errors == 422
+      if(errs.response.status == 422) {
+        //alert('we have error');
+        errors.value = errs.response.data.errors
       }
     });
 }
