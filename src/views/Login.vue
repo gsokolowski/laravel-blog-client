@@ -78,7 +78,7 @@ const setCookieAndLogin = () => {
     }).catch(err => {
       console.log(err);
       if(err.response.status == 422) {
-        alert('error');
+        //alert('error');
         errors.value = err.response.data.errors
       }
     });
