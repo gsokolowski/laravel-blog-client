@@ -48,32 +48,35 @@
             </div>
         </form>
 
-        <!-- <div class="mx-auto px-60">
-            <div class="flex justify-between my-4 px-10">
-                <h2 class="text-xl font-bold">Post</h2>
-                <h2 class="text-xl font-bold">Actions</h2>
-            </div>
-            <div class="flex justify-between text-center space-y-3 px-10" v-for="post in posts">
-                <p class="text-lg font-semibold">{{ post.title }} </p>
-                <div class="space-x-4">
-                    <RouterLink :to="{ name: 'post.update', params: { id: post.id } }" class="text-blue-400">Edit
-                    </RouterLink>
-                    <button class="text-red-400" @click="deletePost(post.id)">Delete</button>
-                </div>
-            </div>
+        <div class="flex items-center justify-center">
+            <div class="w-full w-1/2">
 
-            <div class="flex justify-center space-x-3 mb-10">
-                <button :disabled="!pagination.prev_page_url" @click="fetchPosts(pagination.prev_page_url)"
-                    class="text-blue-600 capitalize">previous</button>
-                <button :disabled="!pagination.next_page_url" @click="fetchPosts(pagination.next_page_url)"
-                    class="text-blue-600 capitalize">next</button>
+                <div class="flex justify-between my-4 px-10">
+                    <h2 class="text-xl font-bold">Post</h2>
+                    <h2 class="text-xl font-bold">Actions</h2>
+                </div>
+
+                <div class="flex justify-between text-center space-y-3 px-10" v-for="post in posts">
+                    <p class="text-lg font-semibold">{{ post.title }}</p>
+                    <div class="space-x-4">
+                        <RouterLink to="/" class="text-blue-400">Edit</RouterLink>
+                        <button class="text-red-400">Delete</button>
+                    </div>
+                </div>
+
+                <div class="flex justify-center space-x-3 mb-10">
+                    <button class="text-blue-600 capitalize">previous</button>
+                    <button class="text-blue-600 capitalize">next</button>
+                </div>
+
             </div>
-        </div> -->
+        </div>
     </div>    
 </template>
 <script setup>
 import axios from 'axios';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
 
 // set form fields 
@@ -81,8 +84,11 @@ const title = ref('')
 const body = ref('')
 const errors = ref({})
 
-const createPost = async () => {
-    await axios
+// for posts listing
+const posts = ref({})
+
+const createPost = () => {
+    axios
         .post('/api/posts', {
             title: title.value,
             body: body.value
@@ -106,5 +112,20 @@ const createPost = async () => {
             }
         })
 }
+
+const fetchPosts = () => {
+    axios
+        .get('api/posts')
+        .then(response => {
+            // you need to get down the response tree to get posts data. api is returning posts in json
+            console.log(response)
+            posts.value = response.data.posts.data 
+        })
+}
+
+// call fetchPosts() onMounted lifecircle hook
+onMounted(() => {
+  fetchPosts()
+});
 
 </script>

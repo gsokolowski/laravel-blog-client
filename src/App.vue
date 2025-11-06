@@ -1,7 +1,7 @@
 <template>
   <router-view />
 
-  <h1 class="text-3xl font-bold underline text-red-600">Hello world! axios</h1>
+  <!-- <h1 class="text-3xl font-bold underline text-red-600">Hello world! axios</h1>
 
   <div>
     <p>Click to setup csrf-cookie and login to localhost</p>
@@ -18,7 +18,7 @@
     >
       Get User data
     </button>
-  </div>
+  </div> -->
 </template>
 
 <script setup>
