@@ -65,8 +65,8 @@
                 </div>
 
                 <div class="flex justify-center space-x-3 mb-10">
-                    <button class="text-blue-600 capitalize">previous</button>
-                    <button class="text-blue-600 capitalize">next</button>
+                    <button :disabled=" ! pagination.prev_page_url" @click="fetchPosts(pagination.prev_page_url)" class="text-blue-600 capitalize">previous</button>
+                    <button :disabled=" ! pagination.next_page_url" @click="fetchPosts(pagination.next_page_url)" class="text-blue-600 capitalize">next</button>
                 </div>
 
             </div>
@@ -80,15 +80,21 @@ import { RouterLink } from 'vue-router';
 
 
 // set form fields 
-const title = ref('')
-const body = ref('')
-const errors = ref({})
+const title = ref('') // empty string
+const body = ref('') // empty string
+const errors = ref({
+    next_page_url: null, // empty values 
+    prev_page_url: null  // empty values 
+})
 
 // for posts listing
-const posts = ref({})
+const posts = ref({}) //empty object
 
-const createPost = () => {
-    axios
+// Pagination comes in response.data.posts.data as next_page_url and prev_page_url
+const pagination = ref({}) //empty object 
+
+const createPost = async () => {
+    await axios
         .post('/api/posts', {
             title: title.value,
             body: body.value
@@ -113,17 +119,22 @@ const createPost = () => {
         })
 }
 
-const fetchPosts = () => {
-    axios
-        .get('api/posts')
+// fetchPosts with url parameter - default url is 'api/posts' this is required for pagination
+const fetchPosts = async (url='api/posts') => {
+    await axios
+        .get(url)
         .then(response => {
             // you need to get down the response tree to get posts data. api is returning posts in json
             console.log(response)
-            posts.value = response.data.posts.data 
+            posts.value = response.data.posts.data
+            pagination.value = {
+                next_page_url: response.data.posts.next_page_url,
+                prev_page_url: response.data.posts.prev_page_url
+            } 
         })
 }
 
-// call fetchPosts() onMounted lifecircle hook
+// initial call fetchPosts() onMounted then later on next and previose buttons
 onMounted(() => {
   fetchPosts()
 });
