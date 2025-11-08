@@ -65,8 +65,8 @@
                 </div>
 
                 <div class="flex justify-center space-x-3 mb-10">
-                    <button :disabled=" ! pagination.prev_page_url" @click="fetchPosts(pagination.prev_page_url)" class="text-blue-600 capitalize">previous</button>
-                    <button :disabled=" ! pagination.next_page_url" @click="fetchPosts(pagination.next_page_url)" class="text-blue-600 capitalize">next</button>
+                    <button :disabled=" ! pagination.prev_page_url" @click="fetchPostsWithPagination(pagination.prev_page_url)" class="text-blue-600 capitalize">previous</button>
+                    <button :disabled=" ! pagination.next_page_url" @click="fetchPostsWithPagination(pagination.next_page_url)" class="text-blue-600 capitalize">next</button>
                 </div>
 
             </div>
@@ -119,8 +119,8 @@ const createPost = async () => {
         })
 }
 
-// fetchPosts with url parameter - default url is 'api/posts' this is required for pagination
-const fetchPosts = async (url='api/posts') => {
+// fetchPostsWithPagination with url parameter - default url is 'api/posts' this is required for pagination
+const fetchPostsWithPagination = async (url='api/posts') => {
     await axios
         .get(url)
         .then(response => {
@@ -134,9 +134,9 @@ const fetchPosts = async (url='api/posts') => {
         })
 }
 
-// initial call fetchPosts() onMounted then later on next and previose buttons
+// initial call fetchPostsWithPagination() onMounted then later on next and previose buttons
 onMounted(() => {
-  fetchPosts()
+  fetchPostsWithPagination()
 });
 
 </script>
