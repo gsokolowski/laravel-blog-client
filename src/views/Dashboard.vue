@@ -60,7 +60,7 @@
                     <p class="text-lg font-semibold">{{ post.title }} {{ post.id }}</p>
                     <div class="space-x-4">
                         <RouterLink :to="{ name: 'post.update', params: { id: post.id } }">Edit</RouterLink>
-                        <button class="text-red-400" @click="deletePost(post.id)">Delete post id {{ post.id }}</button>
+                        <button class="text-red-400" @click="deletePost(post.id, post.title)">Delete post id {{ post.id }}</button>
                     </div>
                 </div>
 
@@ -136,8 +136,21 @@ const fetchPostsWithPagination = async (url='api/posts') => {
 }
 
 // delete post
-const deletePost = (id) => {
+const deletePost = (id, title) => {
     console.log(id)
+    let answer = confirm('Are you sure you want to delete post: ' + title)
+    if (! answer) {
+        return
+    }
+    axios
+        .delete('/api/posts/' + id)
+        .then(response => {
+            if(response.status == 200) { // 204 deleted succesfully 
+                console.log("Post deleted successfully");
+                fetchPostsWithPagination()
+
+            }
+        })
 }
 
 // initial call fetchPostsWithPagination() onMounted then later on next and previose buttons
