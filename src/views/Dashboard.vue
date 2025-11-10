@@ -57,10 +57,10 @@
                 </div>
 
                 <div class="flex justify-between text-center space-y-3 px-10" v-for="post in posts">
-                    <p class="text-lg font-semibold">{{ post.title }}</p>
+                    <p class="text-lg font-semibold">{{ post.title }} {{ post.id }}</p>
                     <div class="space-x-4">
-                        <RouterLink to="/" class="text-blue-400">Edit</RouterLink>
-                        <button class="text-red-400">Delete</button>
+                        <RouterLink :to="{ name: 'post.update', params: { id: post.id } }">Edit</RouterLink>
+                        <button class="text-red-400" @click="deletePost(post.id)">Delete post id {{ post.id }}</button>
                     </div>
                 </div>
 
@@ -101,11 +101,12 @@ const createPost = async () => {
         })
         .then(response => {
             console.log("Sending Post data to /api/posts");
-            if(response.status == 201) {
+            if(response.status == 201) { //on success
                 // clearing form fields on 201 (created)
                 title.value = ''
                 body.value = ''
-                console.log("clearing form fields");
+                console.log("clearing form fields, and refreshing the list of posts");
+                fetchPostsWithPagination() // call it to refresh the list of posts to get that new one created to the list
             }
         }).catch(errs => {
             console.log(errs)
@@ -132,6 +133,11 @@ const fetchPostsWithPagination = async (url='api/posts') => {
                 prev_page_url: response.data.posts.prev_page_url
             } 
         })
+}
+
+// delete post
+const deletePost = (id) => {
+    console.log(id)
 }
 
 // initial call fetchPostsWithPagination() onMounted then later on next and previose buttons

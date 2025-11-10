@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import Login from "@/views/Login.vue";
 import Dashboard from "@/views/Dashboard.vue";
+import UpdatePost from "@/views/UpdatePost.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,12 @@ const router = createRouter({
       name: "dashboard",
       component: Dashboard,
     },
+    {
+      path: "/post/update/:id",
+      name: "post.update",
+      component: UpdatePost,
+    },
+
   ],
 });
 
