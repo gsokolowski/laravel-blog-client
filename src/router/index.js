@@ -3,6 +3,8 @@ import HomeView from "../views/HomeView.vue";
 import Login from "@/views/Login.vue";
 import Dashboard from "@/views/Dashboard.vue";
 import UpdatePost from "@/views/UpdatePost.vue";
+import { userState } from "../stores/user"
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +26,18 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: Login,
+      beforeEnter(to,from,next){
+        const store = userState()
+        // check if current user is already authenticated
+        if(store.getUser) {
+          console.log('current user is already logegd in')
+          next({ 
+            name:'dashboard' // redirect user to dashboard
+          })
+        } else {
+          next() // redirect to login page as it was going
+        }
+      }
     },
     {
       path: "/dashboard",

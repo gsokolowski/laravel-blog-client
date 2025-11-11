@@ -78,6 +78,10 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
+// to have pinia user state here on Dashobard you need to have these 2 lines
+// but i did that on routes in index.js so you dont need that here
+// import { userState } from "../stores/user"
+// const store = userState()
 
 // set form fields 
 const title = ref('') // empty string
@@ -127,11 +131,13 @@ const fetchPostsWithPagination = async (url='api/posts') => {
         .then(response => {
             // you need to get down the response tree to get posts data. api is returning posts in json
             console.log(response)
-            posts.value = response.data.posts.data
-            pagination.value = {
-                next_page_url: response.data.posts.next_page_url,
-                prev_page_url: response.data.posts.prev_page_url
-            } 
+            if(response.status == 200) { 
+                posts.value = response.data.posts.data
+                pagination.value = {
+                    next_page_url: response.data.posts.next_page_url,
+                    prev_page_url: response.data.posts.prev_page_url
+                } 
+            }
         })
 }
 

@@ -1,8 +1,11 @@
-import { defineStore } from "pinia";
-import axios from "axios";
-import router from "@/router";
+import { defineStore } from "pinia"
+import axios from "axios"
+import router from "@/router"
+
 export const userState = defineStore("user", {
-  // initial state of user
+  // persist pinia state
+  persist:true,
+  // initial state of user pre login
   state: () => ({
     user: null,
   }),
@@ -54,5 +57,8 @@ export const userState = defineStore("user", {
             throw error;
         }
     },
+    async logout() {
+        this.user = null // bring user to initial state of user pre login
+    }
   },
 });
