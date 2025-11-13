@@ -48,8 +48,7 @@ const router = createRouter({
       path: "/post/update/:id",
       name: "post.update",
       component: UpdatePost,
-    },
-
+    }
   ],
 });
 

@@ -8,6 +8,7 @@ export const userState = defineStore("user", {
   // initial state of user pre login
   state: () => ({
     user: null,
+    authenticated: false,
   }),
   // to access state of user
   getters: {
@@ -38,6 +39,7 @@ export const userState = defineStore("user", {
             if (res.status === 200 && res.data) {
                 // set user state on Pinia
                 this.user = res.data
+                this.authenticated = true
                 console.log(res.data);
                 router.push({name:'dashboard'});
             } else {
@@ -59,6 +61,8 @@ export const userState = defineStore("user", {
     },
     async logout() {
         this.user = null // bring user to initial state of user pre login
+        this.authenticated  = false // no longer authenticated
+        localStorage.removeItem('token') // optional
     }
   },
 });
