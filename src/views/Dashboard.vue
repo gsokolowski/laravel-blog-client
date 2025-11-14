@@ -79,7 +79,7 @@ import { onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 // to have pinia user state here on Dashobard you need to have these 2 lines
-// but i did that on routes in index.js so you dont need that here
+// but i did that on routes in index.js so you dont need that
 // import { userState } from "../stores/user"
 // const store = userState()
 

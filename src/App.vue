@@ -41,7 +41,7 @@ const handleLogout = async () => {
 
     // redirect to login page
     router.push('/login')
-    
+
   } catch (error) {
     console.error('Logout failed:', error.response ? error.response.data : error)
   }

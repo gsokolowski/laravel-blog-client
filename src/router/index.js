@@ -4,6 +4,7 @@ import Login from "@/views/Login.vue";
 import Dashboard from "@/views/Dashboard.vue";
 import UpdatePost from "@/views/UpdatePost.vue";
 import { userState } from "../stores/user"
+import ShowPost from "@/views/ShowPost.vue";
 
 
 const router = createRouter({
@@ -48,6 +49,11 @@ const router = createRouter({
       path: "/post/update/:id",
       name: "post.update",
       component: UpdatePost,
+    },
+    {
+      path: "/post/:id",
+      name: "post.show",
+      component: ShowPost
     }
   ],
 });
