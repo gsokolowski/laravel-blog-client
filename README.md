@@ -1,5 +1,9 @@
 # laravel-blog-client
 
+based on 
+https://www.udemy.com/course/laravel-11-vue-3-fullstack-blog/learn/lecture/43212358#overview
+
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
